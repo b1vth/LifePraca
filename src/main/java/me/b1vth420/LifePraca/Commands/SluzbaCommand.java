@@ -18,10 +18,10 @@ public class SluzbaCommand extends Command{
         if(ju.hasJob() && ju.getJob().getJobType().equals(jobType.PREMIUM)){
             if(ju.isOnDuty()){
                 ju.setOnDuty(false);
-                p.sendMessage(ChatUtil.chat("&7Opusciles sluzbe"));
+                p.sendTitle(ChatUtil.chat("&2Praca"), ChatUtil.chat("&cOpusciles sluzbe"), 20, 60, 20);
             } else {
                 ju.setOnDuty(true);
-                p.sendMessage(ChatUtil.chat("&7Dolaczyles do sluzby"));
+                p.sendTitle(ChatUtil.chat("&2Praca"), ChatUtil.chat("&aDolaczyles do sluzby"), 20, 60, 20);
             }
         }
     }

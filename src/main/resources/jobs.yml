@@ -10,6 +10,9 @@ jobs:
     drop: false
     exp: false
     jobType: LEGAL #LEGAL, ILLEGAL, PREMIUM
+    jobItem: diamond_pickaxe
+    jobDescription:
+      - 'KOP KAMIEN'
     moneyGivingDrops:
       - diamond 2
       - gold_ore 4
@@ -27,6 +30,9 @@ jobs:
     drop: false
     exp: false
     jobType: LEGAL
+    jobItem: diamond_hoe
+    jobDescription:
+      - 'KOP MARCHEW'
     moneyGivingBlocks:
       - carrot 2
 
@@ -38,6 +44,9 @@ jobs:
     drop: false
     exp: false
     jobType: LEGAL
+    jobItem: shears
+    jobDescription:
+      - 'ZABIJAJ ZWIERZETA'
     moneyGivingKills:
       - pig 27
       - cow 34

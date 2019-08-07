@@ -1,11 +1,20 @@
-package me.b1vth420.LifePraca.Listeners;
+package me.b1vth420.LifePraca.Listeners.Entity;
 
 import me.b1vth420.LifePraca.Data.Config;
 import me.b1vth420.LifePraca.Listeners.Events.LevelUpEvent;
+import me.b1vth420.LifePraca.Main;
 import me.b1vth420.LifePraca.Objects.Job;
 import me.b1vth420.LifePraca.Objects.JobUser;
 import me.b1vth420.LifePraca.Utils.ChatUtil;
+import me.b1vth420.LifePraca.Utils.DeathUtil;
+import me.b1vth420.LifePraca.Utils.SchematicUtils;
+import me.confuser.barapi.BarAPI;
+import net.apcat.simplesit.SimpleSit;
+import net.apcat.simplesit.SimpleSitArmorStand;
+import net.apcat.simplesit.SimpleSitPlayer;
+import net.minecraft.server.v1_12_R1.*;
 import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,6 +31,21 @@ public class EntityDeathListener implements Listener {
             if(ju.hasJob() && ju.isBuilding()){
                 ju.sendMessage("");
             }
+            Player p = (Player) e.getEntity();
+            p.setHealth(1);
+
+            DeathUtil.playSleepAnimation(p);
+
+            BarAPI.setMessage(p, ChatUtil.chat("&cNiedlugo wykrwawisz sie"), Config.getInst().deathTime*60);
+            Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInst(), new Runnable() {
+                public void run() {
+                    if (DeathUtil.isSleeping(p)) {
+                        DeathUtil.stopSleepAnimation(p);
+                        p.teleport(p.getWorld().getSpawnLocation());
+                        BarAPI.removeBar(p);
+                    }
+                }
+            }, Config.getInst().deathTime*60*1000);
         }
 
         if (e.getEntity().getKiller() != null) {

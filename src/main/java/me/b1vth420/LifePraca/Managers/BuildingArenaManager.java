@@ -29,9 +29,10 @@ public class BuildingArenaManager {
         }
         return false;
     }
-    public static BuildingArea getEmpty(){
+    public static BuildingArea getEmpty(int level){
         for(BuildingArea ba : getArena().values()){
-            if(ba.isEmpty()) return ba;
+            if(ba.isEmpty() && ba.getPa().getSchema().getLevel() == level) return ba;
+            return null;
         }
         return null;
     }

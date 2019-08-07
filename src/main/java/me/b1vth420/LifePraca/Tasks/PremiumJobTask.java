@@ -1,5 +1,6 @@
 package me.b1vth420.LifePraca.Tasks;
 
+import me.b1vth420.LifePraca.Data.Config;
 import me.b1vth420.LifePraca.Enums.jobType;
 import me.b1vth420.LifePraca.Managers.JobUserManager;
 import me.b1vth420.LifePraca.Objects.Job;

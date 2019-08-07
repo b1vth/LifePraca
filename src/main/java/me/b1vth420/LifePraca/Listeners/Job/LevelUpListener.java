@@ -1,4 +1,4 @@
-package me.b1vth420.LifePraca.Listeners;
+package me.b1vth420.LifePraca.Listeners.Job;
 
 import me.b1vth420.LifePraca.Listeners.Events.LevelUpEvent;
 import me.b1vth420.LifePraca.Objects.JobUser;

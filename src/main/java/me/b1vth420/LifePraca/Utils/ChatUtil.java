@@ -1,5 +1,7 @@
 package me.b1vth420.LifePraca.Utils;
 
+import me.b1vth420.LifePraca.Main;
+import me.b1vth420.LifePraca.Objects.JobUser;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.Bukkit;
@@ -23,5 +25,11 @@ public class ChatUtil {
     public static String formatDouble(double d){
         DecimalFormat df = new DecimalFormat("#0.00");
         return df.format(d);
+    }
+    public static String fixJobsLore(String s, String name, int id, String level, JobUser ju){
+        return s.replace("{ID}", "#00" + id)
+                .replace("{NAME}", name)
+                .replace("{TIME}", DataUtil.getDate(ju.getJoinTime()))
+                .replace("{LEVEL}", level);
     }
 }

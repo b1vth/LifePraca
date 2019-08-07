@@ -1,10 +1,14 @@
 package me.b1vth420.LifePraca.Objects;
 
+import me.b1vth420.LifePraca.Enums.jobType;
 import me.b1vth420.LifePraca.Managers.JobManager;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
+import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Job {
@@ -14,16 +18,20 @@ public class Job {
     private boolean drop;
     private boolean exp;
     private Enum jobType;
+    private ItemStack jobItem;
+    private List<String> jobDescription = new ArrayList<>();
     private HashMap<Material, Integer> moneyGivingBlocks;
     private HashMap<Material, Integer> moneyGivingDrops;
     private HashMap<EntityType, Integer> moneyGivingKills;
 
-    public Job(String name, Map<Integer, Double> levels, boolean drop, boolean exp, Enum jobType, HashMap<Material, Integer> moneyGivingBlocks, HashMap<Material, Integer> moneyGivingDrops, HashMap<EntityType, Integer> moneyGivingKills){
+    public Job(String name, Map<Integer, Double> levels, boolean drop, boolean exp, Enum jobType, HashMap<Material, Integer> moneyGivingBlocks, HashMap<Material, Integer> moneyGivingDrops, HashMap<EntityType, Integer> moneyGivingKills, ItemStack jobItem, List<String> jobDescription){
         this.name = name;
         this.levels = levels;
         this.drop = drop;
         this.exp = exp;
         this.jobType = jobType;
+        this.jobItem = jobItem;
+        this.jobDescription = jobDescription;
         this.moneyGivingBlocks = moneyGivingBlocks;
         this.moneyGivingDrops = moneyGivingDrops;
         this.moneyGivingKills = moneyGivingKills;
@@ -40,6 +48,15 @@ public class Job {
     public static Job get(String name){
         for(Job j : JobManager.getJobs().values()){
             if(j.getName().equalsIgnoreCase(name)){
+                return j;
+            }
+        }
+        return null;
+    }
+
+    public static Job get(ItemStack is, me.b1vth420.LifePraca.Enums.jobType type){
+        for(Job j : JobManager.getJobs().values()){
+            if(j.getJobItem().equals(is) && j.getJobType().equals(type)){
                 return j;
             }
         }
@@ -108,5 +125,21 @@ public class Job {
 
     public void setMoneyGivingKills(HashMap<EntityType, Integer> moneyGivingKills) {
         this.moneyGivingKills = moneyGivingKills;
+    }
+
+    public ItemStack getJobItem() {
+        return jobItem;
+    }
+
+    public void setJobItem(ItemStack jobItem) {
+        this.jobItem = jobItem;
+    }
+
+    public List<String> getJobDescription() {
+        return jobDescription;
+    }
+
+    public void setJobDescription(List<String> jobDescription) {
+        this.jobDescription = jobDescription;
     }
 }

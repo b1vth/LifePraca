@@ -1,4 +1,4 @@
-package me.b1vth420.LifePraca.Listeners;
+package me.b1vth420.LifePraca.Listeners.Block;
 
 import me.b1vth420.LifePraca.Data.Config;
 import me.b1vth420.LifePraca.Listeners.Events.LevelUpEvent;

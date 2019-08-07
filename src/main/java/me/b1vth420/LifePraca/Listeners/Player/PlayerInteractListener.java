@@ -1,4 +1,4 @@
-package me.b1vth420.LifePraca.Listeners;
+package me.b1vth420.LifePraca.Listeners.Player;
 
 import me.b1vth420.LifePraca.Objects.JobUser;
 import org.bukkit.Material;

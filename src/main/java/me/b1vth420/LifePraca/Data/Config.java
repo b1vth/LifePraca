@@ -3,6 +3,10 @@ package me.b1vth420.LifePraca.Data;
 import me.b1vth420.LifePraca.Main;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Config {
 
     private static Config inst;
@@ -19,6 +23,12 @@ public class Config {
     public String mysqlPassword;
     public boolean mysqlSafeSave;
 
+    public int benefit;
+    public int benefitTime;
+    public List<String> badgeLore;
+    public Map<Integer, String> badgeLevels = new HashMap<>();
+    public int deathTime;
+
     public String sucessfullCreatePattern;
     public String sucessfullCreateBuilding;
     public String moneyAddMessage;
@@ -30,6 +40,15 @@ public class Config {
         mysqlUsername = cfg.getString("MySQL.username");
         mysqlPassword = cfg.getString("MySQL.password");
         mysqlSafeSave = cfg.getBoolean("MySQL.safeSave");
+
+        benefit = cfg.getInt("unemployed.benefit");
+        benefitTime = cfg.getInt("unemployed.time");
+        badgeLore = cfg.getStringList("badge.lore");
+        for(String s : cfg.getStringList("badge.levelsName")){
+            String[] ss = s.split(" ");
+            badgeLevels.putIfAbsent(Integer.parseInt(ss[0]), ss[1]);
+        }
+        deathTime = cfg.getInt("death.time");
 
         sucessfullCreatePattern = cfg.getString("messages.sucessfullCreatePattern");
         sucessfullCreateBuilding = cfg.getString("messages.sucessfullCreateBuilding");

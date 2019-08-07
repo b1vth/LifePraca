@@ -6,6 +6,33 @@ MySQL:
   password: fQKKM0WZKB
   safeSave: true
 
+unemployed:
+  benefit: 50
+  time: 3600
+
+badge:
+  lore:
+    - "Imie: {NAME}"
+    - "ID: {ID}"
+    - "Sluzy od: {DATE}"
+  levelsName:
+    - 1 Kadet
+    - 2 Oficer
+
+drugs:
+  likaon:
+    item:
+      type: seeds
+      name: '&cLikaon'
+      lore:
+        - "Likaon 1"
+    commands:
+      - say likaon
+    effects:
+      - speed 20 1
+
+death:
+  time: 10 #minuty
 messages:
   sucessfullCreatePattern: '&7Pomysnie utworzyles wzor o nazwie &c{PATTERNNANME}'
   sucessfullCreateBuilding: '&7Pomysnie utworzyles arene do budowania &c{NAME} &7o wzorze &c{PATTERNNAME}'

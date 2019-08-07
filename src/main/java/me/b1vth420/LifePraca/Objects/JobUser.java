@@ -22,9 +22,11 @@ public class JobUser {
     private boolean onDuty;
     private HashMap<Job, Map.Entry<Integer, Integer>> levels;
     private BuildingArea ba;
-    private Inventory inv;
+    private long joinTime;
+    private Player cheeked;
+    private boolean brokenLeg;
 
-    private JobUser(String name, UUID uuid, Job job, double money, HashMap<Job, Map.Entry<Integer, Integer>> levels, Inventory inv){
+    public JobUser(String name, UUID uuid, Job job, double money, HashMap<Job, Map.Entry<Integer, Integer>> levels){
         this.name = name;
         this.uuid = uuid;
         this.job = job;
@@ -33,8 +35,8 @@ public class JobUser {
         this.levels = levels;
         this.ba = null;
         this.building = false;
-        this.inv = inv;
         this.onDuty = false;
+        this.brokenLeg = false;
 
         for(Job j : JobManager.getJobs().values()){
             this.levels.put(j, new AbstractMap.SimpleEntry<>(1, 0));
@@ -45,7 +47,7 @@ public class JobUser {
     public static JobUser get(Player p){
         for(JobUser ju : JobUserManager.getJobUsers().values()){
             if(ju.getUuid().equals(p.getUniqueId())) return ju;        }
-        return new JobUser(p.getName(), p.getUniqueId(), null, 0.00, new HashMap<>(), p.getInventory());
+        return new JobUser(p.getName(), p.getUniqueId(), null, 0.00, new HashMap<>());
     }
 
     public boolean hasJob(){
@@ -121,14 +123,6 @@ public class JobUser {
         this.ba = ba;
     }
 
-    public Inventory getInv() {
-        return inv;
-    }
-
-    public void setInv(Inventory inv) {
-        this.inv = inv;
-    }
-
     public boolean isOnDuty() {
         return onDuty;
     }
@@ -136,4 +130,28 @@ public class JobUser {
     public void setOnDuty(boolean onDuty) {
         this.onDuty = onDuty;
     }
+
+    public BuildingArea getBa() {
+        return ba;
+    }
+
+    public void setBa(BuildingArea ba) {
+        this.ba = ba;
+    }
+
+    public long getJoinTime() {
+        return joinTime;
+    }
+
+    public void setJoinTime(long joinTime) {
+        this.joinTime = joinTime;
+    }
+
+    public Player getCheeked() { return cheeked; }
+
+    public void setCheeked(Player cheeked) { this.cheeked = cheeked; }
+
+    public boolean isBrokenLeg() { return brokenLeg; }
+
+    public void setBrokenLeg(boolean brokenLeg) { this.brokenLeg = brokenLeg; }
 }

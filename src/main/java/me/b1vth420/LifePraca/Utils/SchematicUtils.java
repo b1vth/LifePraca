@@ -80,7 +80,6 @@ public class SchematicUtils {
             double money = (j.getLevels().get(pa.getSchema().getLevel()));
 
             p.sendTitle(ChatUtil.chat("&2Prace"), ChatUtil.chat("&aBudowla zostala poprawnie zbudowana"), 20, 60, 20);
-            p.sendMessage(ju.getInv().getContents().toString());
             ju.setMoney(ju.getMoney() + money);
             ChatUtil.sendActionBar(p, ChatUtil.chat("&7Za te budowle otrzymales &a" + money));
 
