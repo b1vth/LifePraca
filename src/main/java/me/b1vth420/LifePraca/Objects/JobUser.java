@@ -5,7 +5,6 @@ import me.b1vth420.LifePraca.Managers.JobUserManager;
 import me.b1vth420.LifePraca.Utils.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 
 import java.util.AbstractMap;
 import java.util.HashMap;
@@ -20,7 +19,7 @@ public class JobUser {
     private double money;
     private boolean building;
     private boolean onDuty;
-    private HashMap<Job, Map.Entry<Integer, Integer>> levels;
+    private HashMap<Job, Map.Entry<Integer, Integer>> levels = new HashMap<>();
     private BuildingArea ba;
     private long joinTime;
     private Player cheeked;

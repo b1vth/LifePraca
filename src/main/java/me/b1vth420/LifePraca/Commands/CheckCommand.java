@@ -1,5 +1,6 @@
 package me.b1vth420.LifePraca.Commands;
 
+import me.b1vth420.LifePraca.Data.Lang;
 import me.b1vth420.LifePraca.Main;
 import me.b1vth420.LifePraca.Objects.BuildingArea;
 import me.b1vth420.LifePraca.Objects.JobUser;
@@ -29,7 +30,7 @@ public class CheckCommand extends Command{
 
         if (ju.isBuilding()) {
             ju.setBuilding(false);
-            p.sendTitle(ChatUtil.chat("&2Prace"), ChatUtil.chat("&aSprawdzanie poprawnosci budowli..."), 20, 60, 20);
+            p.sendTitle(ChatUtil.chat("&2Prace"), ChatUtil.chat(Lang.getInst().buildingCheckStartedMessage), 20, 60, 20);
             Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInst(), new Runnable() {
                 public void run() {
                     SchematicUtils.check(pa, ba, p);

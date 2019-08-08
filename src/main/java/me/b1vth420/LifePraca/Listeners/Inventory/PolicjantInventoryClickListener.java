@@ -1,10 +1,12 @@
 package me.b1vth420.LifePraca.Listeners.Inventory;
 
 import com.google.common.collect.Lists;
+import me.b1vth420.LifePraca.Data.Lang;
 import me.b1vth420.LifePraca.Main;
 import me.b1vth420.LifePraca.Managers.JobUserManager;
 import me.b1vth420.LifePraca.Objects.JobUser;
 import me.b1vth420.LifePraca.Utils.ChatUtil;
+import me.b1vth420.LifePraca.Utils.DataUtil;
 import me.b1vth420.LifePraca.Utils.IDUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -29,10 +31,10 @@ public class PolicjantInventoryClickListener implements Listener{
             if (e.getCurrentItem().getType().equals(Material.IRON_FENCE)) {
                 if (JobUserManager.isFreezed(ju.getCheeked())) {
                     JobUserManager.removeFreeze(ju.getCheeked());
-                    p.sendMessage(ChatUtil.chat("&aPusciles gracza " + ju2.getName()));
+                    p.sendMessage(ChatUtil.chat(Lang.getInst().playerUnFrezedMessage.replace("{PLAYER}", ju2.getName())));
                 } else {
                     JobUserManager.addFreeze(ju.getCheeked());
-                    p.sendMessage(ChatUtil.chat("&cZatrzymales gracza " + ju2.getName()));
+                    p.sendMessage(ChatUtil.chat(Lang.getInst().playerFrezedMessage.replace("{PLAYER}", ju2.getName())));
                 }
             }
 
@@ -43,7 +45,15 @@ public class PolicjantInventoryClickListener implements Listener{
                         .reopenIfFail()
                         .response((player, strings) -> {
                             if (strings[3].equals("Potwierdz") && strings[0] != null && strings[1] != null) {
-                                p.sendMessage(ChatUtil.chat("&aWlepiles mandat graczowi " + ju2.getName() + " w wysokosci " + strings[0] + "$ za " + strings[1]));
+                                p.sendMessage(ChatUtil.chat(Lang.getInst().finePolicemanMessage
+                                                .replace("{PLAYER}", ju2.getName())
+                                                .replace("{REASON1}",(strings[1].isEmpty() ? strings[1] : ""))
+                                                .replace("{REASON2}", (strings[2].isEmpty() ? strings[2] : ""))));
+                                ju2.sendMessage(Lang.getInst().finePlayerMessage
+                                        .replace("{PLAYER}", p.getName())
+                                        .replace("{REASON1}",(strings[1].isEmpty() ? strings[1] : ""))
+                                        .replace("{REASON2}", (strings[2].isEmpty() ? strings[2] : ""))
+                                        .replace("{FINE}", ChatUtil.formatDouble(Double.parseDouble(strings[0]))));
                                 ju2.setMoney(ju2.getMoney() - Double.parseDouble(strings[0]));
                                 Main.getInst().getSQLManager().updateLog(ju, "MANDAT", "Gracz " + ju2.getName() + " otrzymal mandat ("
                                         + strings[0] + "$) za "
@@ -62,9 +72,16 @@ public class PolicjantInventoryClickListener implements Listener{
                         .reopenIfFail()
                         .response((player, strings) -> {
                             if (strings[3].equals("Potwierdz") && strings[0] != null && strings[1] != null) {
-                                p.sendMessage(ChatUtil.chat("&aZmutowales gracza " + ju2.getName() + " na " + strings[0] + " za "
-                                        + (strings[1].isEmpty() ? strings[1] : "")
-                                        + (strings[2].isEmpty() ? strings[2] : "")));
+                                p.sendMessage(ChatUtil.chat(Lang.getInst().mutePolicemanMessage
+                                        .replace("{PLAYER}", p.getName())
+                                        .replace("{REASON1}",(strings[1].isEmpty() ? strings[1] : ""))
+                                        .replace("{REASON2}", (strings[2].isEmpty() ? strings[2] : ""))
+                                        .replace("{TIME}", DataUtil.getDate(DataUtil.parseDateDiff(strings[0], true)))));
+                                ju2.sendMessage(Lang.getInst().mutePlayerMessage
+                                        .replace("{PLAYER}", p.getName())
+                                        .replace("{REASON1}",(strings[1].isEmpty() ? strings[1] : ""))
+                                        .replace("{REASON2}", (strings[2].isEmpty() ? strings[2] : ""))
+                                        .replace("{TIME}", DataUtil.getDate(DataUtil.parseDateDiff(strings[0], true))));
                                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mute " + ju2.getName() + " " + strings[0]);
                                 Main.getInst().getSQLManager().updateLog(ju, "MUTE", "Gracz " + ju2.getName() + " zostal zmutowany na " + strings[0] + " za "
                                         + (strings[1].isEmpty() ? strings[1] : "")
@@ -81,12 +98,13 @@ public class PolicjantInventoryClickListener implements Listener{
                         .newMenu(p, Lists.newArrayList("&a&lExample", "&4&lSign"))
                         .reopenIfFail()
                         .response((player, strings) -> {
-                            if (strings[3].equals("Potwierdz") && strings[0] != null && strings[1] != null) {
-                                p.sendMessage(ChatUtil.chat("&aWyrzuciles gracza " + ju2.getName() + " za " + strings[0]));
-                                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "kick " + ju2.getName() + " "
-                                        + (strings[0].isEmpty() ? strings[0] : "")
-                                        + (strings[1].isEmpty() ? strings[1] : "")
-                                        + (strings[2].isEmpty() ? strings[2] : ""));
+                            if (strings[3].equals("Potwierdz") && strings[0] != null) {
+                                p.sendMessage(ChatUtil.chat("&aWyrzuciles gracza " + ju2.getName() + " za " + strings[0] + (strings[1].isEmpty() ? strings[1] : "") + (strings[2].isEmpty() ? strings[2] : "")));
+                                p.kickPlayer(ChatUtil.chat(
+                                        "&4Zostales wyrzucony z serwera "
+                                        + (strings[0].isEmpty() ? "\n" + strings[0] : "")
+                                        + (strings[1].isEmpty() ? "\n" + strings[1] : "")
+                                        + (strings[2].isEmpty() ? "\n" + strings[2] : "")));
                                 Main.getInst().getSQLManager().updateLog(ju, "KICK", "Gracz " + ju2.getName() + " zostal wyrzucony za "
                                         + (strings[0].isEmpty() ? strings[0] : "")
                                         + (strings[1].isEmpty() ? strings[1] : "")

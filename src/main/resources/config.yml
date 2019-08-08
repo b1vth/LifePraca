@@ -14,15 +14,18 @@ badge:
   lore:
     - "Imie: {NAME}"
     - "ID: {ID}"
-    - "Sluzy od: {DATE}"
+    - "Sluzy od: {TIME}"
   levelsName:
     - 1 Kadet
     - 2 Oficer
 
 drugs:
   likaon:
+    level: 1
+    pkt: 10
     item:
-      type: seeds
+      type: carrot_item
+      toBreak: carrot
       name: '&cLikaon'
       lore:
         - "Likaon 1"
@@ -31,9 +34,6 @@ drugs:
     effects:
       - speed 20 1
 
-death:
-  time: 10 #minuty
-messages:
-  sucessfullCreatePattern: '&7Pomysnie utworzyles wzor o nazwie &c{PATTERNNANME}'
-  sucessfullCreateBuilding: '&7Pomysnie utworzyles arene do budowania &c{NAME} &7o wzorze &c{PATTERNNAME}'
-  moneyAddMessage: 'Otrzymales {MONEY} twoj stan konta {BALANCE}'
+time:
+  death: 10
+  steal: 10

@@ -1,5 +1,6 @@
 package me.b1vth420.LifePraca.Utils;
 
+import me.b1vth420.LifePraca.Data.Lang;
 import me.b1vth420.LifePraca.Objects.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -79,21 +80,21 @@ public class SchematicUtils {
         if(SchematicUtils.isSame(l.getWorld(), l, pa.getSchema()) == 0){
             double money = (j.getLevels().get(pa.getSchema().getLevel()));
 
-            p.sendTitle(ChatUtil.chat("&2Prace"), ChatUtil.chat("&aBudowla zostala poprawnie zbudowana"), 20, 60, 20);
+            p.sendTitle(ChatUtil.chat("&2Prace"), ChatUtil.chat(Lang.getInst().buildingSuccessfulBuildMessage), 20, 60, 20);
             ju.setMoney(ju.getMoney() + money);
-            ChatUtil.sendActionBar(p, ChatUtil.chat("&7Za te budowle otrzymales &a" + money));
+            ChatUtil.sendActionBar(p, ChatUtil.chat(Lang.getInst().buildingSuccessfulMoneyMessage.replace("{MONEY}", String.valueOf(money))));
 
             prepare(p, ba, pa, ju);
         } else if(SchematicUtils.isSame(l.getWorld(), l, pa.getSchema()) <= 10){
             double money = (j.getLevels().get(pa.getSchema().getLevel())/2);
 
-            p.sendTitle(ChatUtil.chat("&2Prace"), ChatUtil.chat("&aBudowla zostala w czesci poprawnie wykonana"), 20, 60, 20);
+            p.sendTitle(ChatUtil.chat("&2Prace"), ChatUtil.chat(Lang.getInst().buildingPartlySuccessfulMessage), 20, 60, 20);
             ju.setMoney(ju.getMoney() + money);
-            ChatUtil.sendActionBar(p, ChatUtil.chat("&7Za te budowle otrzymales &a" + money));
+            ChatUtil.sendActionBar(p, ChatUtil.chat(Lang.getInst().buildingSuccessfulMoneyMessage.replace("{MONEY}", String.valueOf(money))));
 
             prepare(p, ba, pa, ju);
         } else {
-            p.sendTitle(ChatUtil.chat("&4Prace"), ChatUtil.chat("&cBudowla nie zostala zbudowana poprawnie"), 20, 60, 20);
+            p.sendTitle(ChatUtil.chat("&4Prace"), ChatUtil.chat(Lang.getInst().buildingNotSuccessfulMessage), 20, 60, 20);
             if(p.getLevel() <= 0){
                 prepare(p, ba, pa, ju);
                 ChatUtil.sendActionBar(p, ChatUtil.chat("&cMlody skocz po 0.5"));

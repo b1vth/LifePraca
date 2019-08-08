@@ -1,5 +1,6 @@
 package me.b1vth420.LifePraca.Tasks;
 
+import me.b1vth420.LifePraca.Data.Lang;
 import me.b1vth420.LifePraca.Main;
 import me.b1vth420.LifePraca.Managers.JobUserManager;
 import me.b1vth420.LifePraca.Objects.JobUser;
@@ -19,7 +20,7 @@ public class BuildingTimeTask extends BukkitRunnable {
                 if(p.getLevel() > 0){
                     p.setLevel(p.getLevel() -1);
                 } else {
-                    p.sendTitle(ChatUtil.chat("&2Prace"), ChatUtil.chat("&aSprawdzanie poprawnosci budowli..."), 20, 60, 20);
+                    p.sendTitle(ChatUtil.chat("&2Prace"), ChatUtil.chat(Lang.getInst().buildingCheckInProgressMessage), 20, 60, 20);
                     ju.setBuilding(false);
                     Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInst(), new Runnable() {
                         public void run() {

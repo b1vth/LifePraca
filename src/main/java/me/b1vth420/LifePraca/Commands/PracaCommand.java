@@ -1,16 +1,14 @@
 package me.b1vth420.LifePraca.Commands;
 
+import me.b1vth420.LifePraca.Data.Lang;
 import me.b1vth420.LifePraca.Gui.PracaGui;
 import me.b1vth420.LifePraca.Listeners.Events.JobJoinEvent;
 import me.b1vth420.LifePraca.Objects.Job;
 import me.b1vth420.LifePraca.Objects.JobUser;
 import me.b1vth420.LifePraca.Utils.ChatUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.util.Map;
 
 public class PracaCommand extends Command{
 
@@ -34,7 +32,7 @@ public class PracaCommand extends Command{
                 return;
             }
             ju.setJob(j);
-            Bukkit.getPlayer(args[0]).sendMessage(ChatUtil.chat("&aAdministrator " + p.getName() + " ustawil ci prace " + j.getName()));
+            Bukkit.getPlayer(args[0]).sendMessage(ChatUtil.chat(Lang.getInst().forcedJobChangeMessage.replace("{PLAYER}", sender.getName()).replace("{JOB}", j.getName())));
             p.sendMessage(ChatUtil.chat("&7Zmieniles prace graczowi&c " + ju.getName() + " &7na&c " + j.getName()));
 
             JobJoinEvent eve = new JobJoinEvent(Bukkit.getPlayer(args[0]));

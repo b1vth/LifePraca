@@ -1,6 +1,6 @@
 package me.b1vth420.LifePraca.Tasks;
 
-import me.b1vth420.LifePraca.Data.Config;
+import me.b1vth420.LifePraca.Data.Lang;
 import me.b1vth420.LifePraca.Enums.jobType;
 import me.b1vth420.LifePraca.Managers.JobUserManager;
 import me.b1vth420.LifePraca.Objects.Job;
@@ -14,7 +14,7 @@ public class PremiumJobTask extends BukkitRunnable {
             if(ju.hasJob() && ju.getJob().getJobType().equals(jobType.PREMIUM) && ju.isOnDuty()){
                 Job j = ju.getJob();
                 ju.setMoney(ju.getMoney() + j.getLevels().get(ju.getLevels().get(j).getKey()));
-                ju.sendMessage("&7Dostales wynagrodzenie za swoja sluzbe &a" + j.getLevels().get(ju.getLevels().get(j).getKey()));
+                ju.sendMessage(Lang.getInst().premiumJobRewardMessage.replace("{MONEY}", String.valueOf(j.getLevels().get(ju.getLevels().get(j).getKey()))));
             }
         }
     }

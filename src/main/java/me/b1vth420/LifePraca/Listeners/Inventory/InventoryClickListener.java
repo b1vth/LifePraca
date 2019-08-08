@@ -1,5 +1,6 @@
 package me.b1vth420.LifePraca.Listeners.Inventory;
 
+import me.b1vth420.LifePraca.Data.Lang;
 import me.b1vth420.LifePraca.Enums.jobType;
 import me.b1vth420.LifePraca.Gui.PracaGui;
 import me.b1vth420.LifePraca.Listeners.Events.JobJoinEvent;
@@ -7,14 +8,10 @@ import me.b1vth420.LifePraca.Objects.Job;
 import me.b1vth420.LifePraca.Objects.JobUser;
 import me.b1vth420.LifePraca.Utils.ChatUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
 
 public class InventoryClickListener implements Listener{
 
@@ -57,7 +54,7 @@ public class InventoryClickListener implements Listener{
             ju.setJob(j);
             JobJoinEvent eve = new JobJoinEvent(p);
             Bukkit.getPluginManager().callEvent(eve);
-            p.sendMessage(ChatUtil.chat("&7Dolaczyles do pracy &a" + ju.getJob().getName()));
+            p.sendMessage(ChatUtil.chat(Lang.getInst().jobJoinMessage.replace("{JOB}", ju.getJob().getName())));
         }
 
         if(e.getClickedInventory().getName().equals(ChatUtil.chat("&aUrzad Pracy: Prace nielegalne"))) {
@@ -68,7 +65,7 @@ public class InventoryClickListener implements Listener{
             ju.setJob(j);
             JobJoinEvent eve = new JobJoinEvent(p);
             Bukkit.getPluginManager().callEvent(eve);
-            p.sendMessage(ChatUtil.chat("&7Dolaczyles do pracy &a" + ju.getJob().getName()));
+            p.sendMessage(ChatUtil.chat(Lang.getInst().jobJoinMessage.replace("{JOB}", ju.getJob().getName())));
         }
 
         if(e.getClickedInventory().getName().equals(ChatUtil.chat("&aUrzad Pracy: Prace Premium"))) {
@@ -80,7 +77,7 @@ public class InventoryClickListener implements Listener{
             if(j.getName().equalsIgnoreCase("policjant")) ju.setJoinTime(System.currentTimeMillis());
             JobJoinEvent eve = new JobJoinEvent(p);
             Bukkit.getPluginManager().callEvent(eve);
-            p.sendMessage(ChatUtil.chat("&7Dolaczyles do pracy &a" + ju.getJob().getName()));
+            p.sendMessage(ChatUtil.chat(Lang.getInst().jobJoinMessage.replace("{JOB}", ju.getJob().getName())));
         }
     }
 }

@@ -23,7 +23,6 @@ public class PatternArena {
     private Location lowerLoc;
     private Location upperLoc;
     private int size;
-    private long time;
     private HashSet<Material> blocks = new HashSet<>();
     private Schematic schema;
 

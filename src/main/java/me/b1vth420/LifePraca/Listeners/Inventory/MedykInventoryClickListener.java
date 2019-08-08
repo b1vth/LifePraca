@@ -1,5 +1,6 @@
 package me.b1vth420.LifePraca.Listeners.Inventory;
 
+import me.b1vth420.LifePraca.Data.Lang;
 import me.b1vth420.LifePraca.Objects.JobUser;
 import me.b1vth420.LifePraca.Utils.ChatUtil;
 import me.b1vth420.LifePraca.Utils.DeathUtil;
@@ -22,12 +23,12 @@ public class MedykInventoryClickListener implements Listener{
             if(e.getCurrentItem().getType().equals(Material.CAKE)) {
                 if(ju2.isBrokenLeg()){
                     ju2.setBrokenLeg(false);
-                    ju.sendMessage("&aNastawiles noge graczowi " + ju2.getName());
-                    ju2.sendMessage("&aMedyk" + ju2.getName() + " nastawil ci noge!");
-                    ju2.getPlayer().removePotionEffect(PotionEffectType.SLOW);
+                    ju.sendMessage(Lang.getInst().brokenLegHelpMessageTo.replace("{PLAYER}", ju.getName()));
+                    ju2.sendMessage(Lang.getInst().brokenLegHelpMessageWho.replace("{PLAYER}", ju2.getName()));
                 }
                 ju2.getPlayer().setHealth(20);
-                ju2.sendMessage("&aZostales uleczony przez " + ju.getName() +"!");
+                ju2.getPlayer().removePotionEffect(PotionEffectType.SLOW);
+                ju2.sendMessage(Lang.getInst().playerHelpedMessage.replace("{PLAYER}", ju.getName()));
                 if(DeathUtil.isSleeping(ju2.getPlayer())) {
                     if(BarAPI.hasBar(ju2.getPlayer())) BarAPI.removeBar(ju2.getPlayer());
                     DeathUtil.stopSleepAnimation(ju2.getPlayer());

@@ -1,6 +1,6 @@
 package me.b1vth420.LifePraca.Commands;
 
-import me.b1vth420.LifePraca.Data.Config;
+import me.b1vth420.LifePraca.Data.Lang;
 import me.b1vth420.LifePraca.Managers.BuildingArenaManager;
 import me.b1vth420.LifePraca.Objects.BuildingArea;
 import me.b1vth420.LifePraca.Objects.PatternArena;
@@ -26,6 +26,6 @@ public class CreateBuildingCommand extends Command{
             return;
         }
         BuildingArea ba = new BuildingArea(args[0], p.getLocation(), pa);
-        p.sendMessage(ChatUtil.chat(Config.getInst().sucessfullCreateBuilding).replace("{NAME}", ba.getName()).replace("{PATTERNNAME}", pa.getName()));
+        p.sendMessage(ChatUtil.chat(Lang.getInst().sucessfulCreateBuildingMessage).replace("{NAME}", ba.getName()).replace("{PATTERNNAME}", pa.getName()));
     }
 }

@@ -1,7 +1,7 @@
 package me.b1vth420.LifePraca.Listeners.Player;
 
 import me.b1vth420.LifeDrop.Listeners.Event.PlayerDropEvent;
-import me.b1vth420.LifePraca.Data.Config;
+import me.b1vth420.LifePraca.Data.Lang;
 import me.b1vth420.LifePraca.Listeners.Events.LevelUpEvent;
 import me.b1vth420.LifePraca.Objects.Job;
 import me.b1vth420.LifePraca.Objects.JobUser;
@@ -21,7 +21,7 @@ public class PlayerDropListener implements Listener {
 
         Job j = Job.get(ju.getJob());
         ju.setMoney(ju.getMoney() + j.getLevels().get(ju.getLevels().get(j).getKey()));
-        e.getPlayer().sendMessage(ChatUtil.chat(Config.getInst().moneyAddMessage.replace("{MONEY}", String.valueOf(j.getLevels().get(ju.getLevels().get(j).getKey()))).replace("{BALANCE}", ChatUtil.formatDouble(ju.getMoney()))));
+        e.getPlayer().sendMessage(ChatUtil.chat(Lang.getInst().moneyAddMessage.replace("{MONEY}", String.valueOf(j.getLevels().get(ju.getLevels().get(j).getKey()))).replace("{BALANCE}", ChatUtil.formatDouble(ju.getMoney()))));
 
         int pkt = ju.getLevels().get(j).getValue();
         int level = ju.getLevels().get(j).getKey();

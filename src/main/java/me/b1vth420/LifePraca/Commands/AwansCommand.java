@@ -1,6 +1,9 @@
 package me.b1vth420.LifePraca.Commands;
 
+import me.b1vth420.LifePraca.Data.Config;
+import me.b1vth420.LifePraca.Data.Lang;
 import me.b1vth420.LifePraca.Listeners.Events.JobJoinEvent;
+import me.b1vth420.LifePraca.Main;
 import me.b1vth420.LifePraca.Objects.JobUser;
 import me.b1vth420.LifePraca.Utils.ChatUtil;
 import org.bukkit.Bukkit;
@@ -21,8 +24,10 @@ public class AwansCommand extends Command{
         if(p2 == null) { p.sendMessage(ChatUtil.chat("&4Blad &cNie ma takiego gracza na serwerze!")); return; }
         JobUser ju = JobUser.get(p2);
         ju.getLevels().replace(ju.getJob(), new AbstractMap.SimpleEntry<>(ju.getLevels().get(ju.getJob()).getKey()+1, ju.getLevels().get(ju.getJob()).getValue()));
-        ju.sendMessage(ChatUtil.chat("&7Zostales awansowany przez " + sender.getName()));
+        ju.sendMessage(ChatUtil.chat(Lang.getInst().promotionMessage.replace("{PLAYER}", sender.getName())));
         p.sendMessage(ChatUtil.chat("&aAwansowales gracza " + ju.getName()));
+        Main.getInst().getSQLManager().updateLog(JobUser.get(p), "AWANS", "Gracz " + ju.getName() + " zostal awansowany na " + Config.getInst().badgeLevels.get(ju.getLevels().get(ju.getJob()).getKey()));
+
         JobJoinEvent e = new JobJoinEvent(p);
         Bukkit.getPluginManager().callEvent(e);
     }

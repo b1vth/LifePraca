@@ -6,17 +6,12 @@ import me.b1vth420.LifePraca.Listeners.Events.JobJoinEvent;
 import me.b1vth420.LifePraca.Main;
 import me.b1vth420.LifePraca.Objects.JobUser;
 import me.b1vth420.LifePraca.Utils.ChatUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +25,6 @@ public class JobJoinListener implements Listener{
         JobUser ju = JobUser.get(e.getPlayer());
 
         String info = Main.getInst().getSQLManager().getInfo(e.getPlayer());
-
-        Main.getInst().getSQLManager().updatePlayer(ju);
 
         ItemStack is = new ItemStack(Material.NAME_TAG);
         ItemMeta im = is.getItemMeta();
@@ -55,8 +48,18 @@ public class JobJoinListener implements Listener{
         Apteczka.setDisplayName(ChatUtil.chat("&2Apteczka"));
         apteczka.setItemMeta(Apteczka);
 
+        ItemStack Steal = new ItemStack(Material.BLAZE_ROD);
+        ItemMeta steal = Steal.getItemMeta();
+        steal.setDisplayName("&cOkradnij");
+        Steal.setItemMeta(steal);
+
+
         if(ju.getJob().getJobType().equals(jobType.PREMIUM) && ju.getJob().getName().equalsIgnoreCase("medyk")){
             e.getPlayer().getInventory().addItem(apteczka);
+        }
+
+        if(ju.getJob().getJobType().equals(jobType.ILLEGAL) && ju.getJob().getName().equalsIgnoreCase("zlodziej") || ju.getJob().getName().equalsIgnoreCase("zlodzieii")){
+            e.getPlayer().getInventory().addItem(Steal);
         }
 
         if(ju.getJob().getJobType().equals(jobType.PREMIUM) && ju.getJob().getName().equalsIgnoreCase("policjant")){

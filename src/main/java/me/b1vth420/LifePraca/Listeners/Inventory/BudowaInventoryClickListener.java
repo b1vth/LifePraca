@@ -1,10 +1,9 @@
 package me.b1vth420.LifePraca.Listeners.Inventory;
 
-import me.b1vth420.LifePraca.Gui.BudowaGui;
+import me.b1vth420.LifePraca.Data.Lang;
 import me.b1vth420.LifePraca.Main;
 import me.b1vth420.LifePraca.Managers.BuildingArenaManager;
 import me.b1vth420.LifePraca.Objects.BuildingArea;
-import me.b1vth420.LifePraca.Objects.Job;
 import me.b1vth420.LifePraca.Objects.JobUser;
 import me.b1vth420.LifePraca.Objects.PatternArena;
 import me.b1vth420.LifePraca.Utils.ChatUtil;
@@ -44,7 +43,7 @@ public class BudowaInventoryClickListener implements Listener{
         PatternArena pa = ba.getPa();
         ju.setBuildingArea(ba);
         p.teleport(pa.getCenter());
-        p.sendTitle(ChatUtil.chat("&2Praca"), ChatUtil.chat("&aZostales przeteleportowany na budowe"), 20, 60, 20);
+        p.sendTitle(ChatUtil.chat("&2Praca"), ChatUtil.chat(Lang.getInst().buildingTeleportMessage), 20, 60, 20);
         ba.setEmpty(false);
         pa.fill();
         InventoryUtil.storeAndClearInventory(p);

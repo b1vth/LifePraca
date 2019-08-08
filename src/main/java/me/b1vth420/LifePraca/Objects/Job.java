@@ -1,6 +1,5 @@
 package me.b1vth420.LifePraca.Objects;
 
-import me.b1vth420.LifePraca.Enums.jobType;
 import me.b1vth420.LifePraca.Managers.JobManager;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
@@ -20,11 +19,12 @@ public class Job {
     private Enum jobType;
     private ItemStack jobItem;
     private List<String> jobDescription = new ArrayList<>();
+    private List<List<ItemStack>> prizes;
     private HashMap<Material, Integer> moneyGivingBlocks;
     private HashMap<Material, Integer> moneyGivingDrops;
     private HashMap<EntityType, Integer> moneyGivingKills;
 
-    public Job(String name, Map<Integer, Double> levels, boolean drop, boolean exp, Enum jobType, HashMap<Material, Integer> moneyGivingBlocks, HashMap<Material, Integer> moneyGivingDrops, HashMap<EntityType, Integer> moneyGivingKills, ItemStack jobItem, List<String> jobDescription){
+    public Job(String name, Map<Integer, Double> levels, boolean drop, boolean exp, Enum jobType, HashMap<Material, Integer> moneyGivingBlocks, HashMap<Material, Integer> moneyGivingDrops, HashMap<EntityType, Integer> moneyGivingKills, ItemStack jobItem, List<String> jobDescription, List<List<ItemStack>> prizes){
         this.name = name;
         this.levels = levels;
         this.drop = drop;
@@ -32,6 +32,7 @@ public class Job {
         this.jobType = jobType;
         this.jobItem = jobItem;
         this.jobDescription = jobDescription;
+        this.prizes = prizes;
         this.moneyGivingBlocks = moneyGivingBlocks;
         this.moneyGivingDrops = moneyGivingDrops;
         this.moneyGivingKills = moneyGivingKills;
@@ -141,5 +142,9 @@ public class Job {
 
     public void setJobDescription(List<String> jobDescription) {
         this.jobDescription = jobDescription;
+    }
+
+    public List<List<ItemStack>> getPrizes() {
+        return prizes;
     }
 }

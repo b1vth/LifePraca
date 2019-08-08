@@ -23,15 +23,12 @@ public class Config {
     public String mysqlPassword;
     public boolean mysqlSafeSave;
 
-    public int benefit;
+    public double benefit;
     public int benefitTime;
     public List<String> badgeLore;
     public Map<Integer, String> badgeLevels = new HashMap<>();
     public int deathTime;
-
-    public String sucessfullCreatePattern;
-    public String sucessfullCreateBuilding;
-    public String moneyAddMessage;
+    public int stealTime;
 
     public void load(){
         mysqlIP = cfg.getString("MySQL.ip");
@@ -41,18 +38,15 @@ public class Config {
         mysqlPassword = cfg.getString("MySQL.password");
         mysqlSafeSave = cfg.getBoolean("MySQL.safeSave");
 
-        benefit = cfg.getInt("unemployed.benefit");
+        benefit = cfg.getDouble("unemployed.benefit");
         benefitTime = cfg.getInt("unemployed.time");
         badgeLore = cfg.getStringList("badge.lore");
         for(String s : cfg.getStringList("badge.levelsName")){
             String[] ss = s.split(" ");
             badgeLevels.putIfAbsent(Integer.parseInt(ss[0]), ss[1]);
         }
-        deathTime = cfg.getInt("death.time");
-
-        sucessfullCreatePattern = cfg.getString("messages.sucessfullCreatePattern");
-        sucessfullCreateBuilding = cfg.getString("messages.sucessfullCreateBuilding");
-        moneyAddMessage = cfg.getString("messages.moneyAddMessage");
+        deathTime = cfg.getInt("time.death");
+        stealTime = cfg.getInt("time.steal");
     }
 
     public static Config getInst(){

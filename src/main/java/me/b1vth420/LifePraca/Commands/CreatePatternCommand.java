@@ -1,6 +1,6 @@
 package me.b1vth420.LifePraca.Commands;
 
-import me.b1vth420.LifePraca.Data.Config;
+import me.b1vth420.LifePraca.Data.Lang;
 import me.b1vth420.LifePraca.Objects.PatternArena;
 import me.b1vth420.LifePraca.Utils.ChatUtil;
 import org.bukkit.command.CommandSender;
@@ -15,6 +15,6 @@ public class CreatePatternCommand extends Command{
     public void execute(CommandSender sender, String[] args) {
         Player p = (Player) sender;
         PatternArena pa =  new PatternArena(args[0], p.getLocation(), Integer.parseInt(args[1])+1);
-        p.sendMessage(ChatUtil.chat(Config.getInst().sucessfullCreatePattern.replace("{PATTERNNAME}", pa.getName())));
+        p.sendMessage(ChatUtil.chat(Lang.getInst().sucessfulCreateBuildingMessage.replace("{PATTERNNAME}", pa.getName())));
     }
 }

@@ -14,6 +14,7 @@ import java.util.HashMap;
 public class DeathUtil {
 
     public static HashMap<String, Player> sleep = new HashMap<>();
+    public static HashMap<String, Player> toSteal = new HashMap<>();
 
     public static void playSleepAnimation(Player asleep) {
         final PacketContainer bedPacket = Main.getInst().getManager().createPacket(PacketType.Play.Server.BED, false);
@@ -57,5 +58,12 @@ public class DeathUtil {
                 }
             }
         }
+    }
+
+    public static boolean containsSteel(Player p){
+        for(Player px : toSteal.values()){
+            if(px.equals(p)) return true;
+        }
+        return false;
     }
 }

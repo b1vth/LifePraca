@@ -31,10 +31,13 @@ public class Loader {
             ConfigurationSection cs1 = cs.getConfigurationSection(s);
 
             String name = cs1.getString("item.name");
+            Material toBreak = Material.matchMaterial(cs1.getString("item.toBreak").toUpperCase());
             Material m = Material.matchMaterial(cs1.getString("item.type").toUpperCase());
             List<String> lore = new ArrayList<>();
             List<String> commands = new ArrayList<>();
             List<PotionEffect> effects = new ArrayList<>();
+            int level = cs1.getInt("level");
+            int pkt = cs1.getInt("pkt");
 
             if(cs1.getStringList("item.lore") != null)
                  lore = cs1.getStringList("item.lore");
@@ -49,7 +52,7 @@ public class Loader {
 
             ItemStack is = ItemUtil.BuildItem(m, name, lore);
 
-            Main.getInst().getDrugs().put(is, new AbstractMap.SimpleEntry<>(commands, effects));
+            Main.getInst().getDrugs().put(toBreak, new AbstractMap.SimpleEntry<>(is, new AbstractMap.SimpleEntry<>(commands, new AbstractMap.SimpleEntry<>(effects, new AbstractMap.SimpleEntry<>(level, pkt)))));
         }
     }
 
@@ -86,6 +89,7 @@ public class Loader {
             HashMap<Material, Integer> moneyGivingBlocks = new HashMap<>();
             HashMap<Material, Integer> moneyGivingDrops  = new HashMap<>();
             HashMap<EntityType, Integer> moneyGivingKills = new HashMap<>();
+            List<List<ItemStack>> prizes = new ArrayList<>();
 
             if(cs1.contains("moneyGivingBlocks")) {
                 for (String sx : cs1.getStringList("moneyGivingBlocks")) {
@@ -103,11 +107,14 @@ public class Loader {
                 for(String sx : cs1.getStringList("moneyGivingKills")){
                     String[] ss = sx.split(" ");
                     moneyGivingKills.put(EntityType.valueOf(ss[0].toUpperCase()), Integer.parseInt(ss[1]));
-                    System.out.println("AGUABGu3");
                 }
             }
+            if(cs1.contains("prizes")){
+                for(int i=0;i<cs1.getStringList("prizes").size(); i++)
+                    prizes.add(ItemUtil.parseItemsFromString(cs1.getStringList("prizes").get(i)));
+            }
 
-            new Job(name, levels, drop, exp, type, moneyGivingBlocks, moneyGivingDrops, moneyGivingKills, jobItem, jobDescription);
+            new Job(name, levels, drop, exp, type, moneyGivingBlocks, moneyGivingDrops, moneyGivingKills, jobItem, jobDescription, prizes);
         }
     }
 }

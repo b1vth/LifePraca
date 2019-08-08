@@ -1,5 +1,6 @@
 package me.b1vth420.LifePraca.Listeners.Entity;
 
+import me.b1vth420.LifePraca.Data.Lang;
 import me.b1vth420.LifePraca.Objects.JobUser;
 import me.b1vth420.LifePraca.Utils.ChatUtil;
 import org.bukkit.entity.Player;
@@ -18,7 +19,7 @@ public class EntityDamageListener implements Listener{
         if(e.getCause().equals(EntityDamageEvent.DamageCause.FALL)){
             if(p.getFallDistance() > 6){
                 JobUser.get(p).setBrokenLeg(true);
-                p.sendMessage(ChatUtil.chat("&cZlamales sobie noge!"));
+                p.sendMessage(ChatUtil.chat(Lang.getInst().brokenLegMessage));
                 PotionEffect pe = new PotionEffect(PotionEffectType.SLOW, 9999999, 1);
                 p.addPotionEffect(pe);
             }

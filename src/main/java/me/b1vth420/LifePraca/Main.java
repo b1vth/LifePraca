@@ -5,9 +5,11 @@ import com.comphenix.protocol.ProtocolManager;
 import me.b1vth420.LifePraca.Commands.*;
 import me.b1vth420.LifePraca.Data.Config;
 import me.b1vth420.LifePraca.Data.FileManager;
+import me.b1vth420.LifePraca.Data.Lang;
 import me.b1vth420.LifePraca.Data.MySQL.SQLManager;
 import me.b1vth420.LifePraca.Listeners.Block.BlockBreakListener;
 import me.b1vth420.LifePraca.Listeners.Block.BlockPlaceListener;
+import me.b1vth420.LifePraca.Listeners.Block.DilerBlockPlaceListener;
 import me.b1vth420.LifePraca.Listeners.Entity.EntityDamageListener;
 import me.b1vth420.LifePraca.Listeners.Entity.EntityDeathListener;
 import me.b1vth420.LifePraca.Listeners.Inventory.BudowaInventoryClickListener;
@@ -25,11 +27,14 @@ import me.b1vth420.LifePraca.Utils.Loader;
 import me.b1vth420.LifePraca.Utils.RegisterUtil;
 import me.b1vth420.LifePraca.Utils.SignMenuFactory;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +44,8 @@ public final class Main extends JavaPlugin {
     private ProtocolManager manager;
     private SignMenuFactory signMenuFactory;
     private SQLManager sql;
-    private HashMap<ItemStack, Map.Entry<List<String>, List<PotionEffect>>> drugs;
+    private HashMap<Material, Map.Entry<ItemStack, Map.Entry<List<String>, Map.Entry<List<PotionEffect>, Map.Entry<Integer, Integer>>>>> drugs;
+    private HashSet<Location> drugFarms;
 
     public Main() {
         inst = this;
@@ -48,21 +54,16 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         init();
-        FileManager.check();
-        Loader.load();
-        Config.getInst().load();
-
         registerListeners();
         registerCommands();
         registerTasks();
         registerDatabase();
-
-        sql.loadPlayers();
+        load();
     }
 
     @Override
     public void onDisable() {
-        sql.savePlayers();
+        save();
         sql.onDisable();
     }
 
@@ -85,6 +86,7 @@ public final class Main extends JavaPlugin {
         RegisterUtil.registerCommand(new SpawnNpcCommand());
         RegisterUtil.registerCommand(new AwansCommand());
         RegisterUtil.registerCommand(new DrugsCommand());
+        RegisterUtil.registerCommand(new MoneyCommand());
     }
 
     private void registerListeners(){
@@ -103,6 +105,9 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new MedykInventoryClickListener(), this);
         Bukkit.getPluginManager().registerEvents(new BudowaInventoryClickListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
+        Bukkit.getPluginManager().registerEvents(new DilerBlockPlaceListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerCommandPreprocessListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerExpChangeListener(), this);
     }
 
     private void registerTasks(){
@@ -120,9 +125,29 @@ public final class Main extends JavaPlugin {
         manager = ProtocolLibrary.getProtocolManager();
         this.signMenuFactory = new SignMenuFactory(this);
         this.drugs = new HashMap<>();
+        this.drugFarms = new HashSet<>();
+        FileManager.check();
+        Loader.load();
+        Config.getInst().load();
+        Lang.getInst().load();
+    }
+
+    private void save(){
+        sql.savePlayers();
+        sql.saveBuildArenas();
+        sql.savePatternArenas();
+    }
+
+    private void load(){
+        sql.loadPatternArenas();
+        sql.loadBuildArenas();
+        sql.loadDrugFarms();
+        sql.loadPlayers();
     }
 
     public SQLManager getSQLManager() { return sql; }
     public SignMenuFactory getSignMenuFactory() { return this.signMenuFactory; }
-    public HashMap<ItemStack, Map.Entry<List<String>, List<PotionEffect>>> getDrugs() { return drugs; }
+
+    public HashMap<Material, Map.Entry<ItemStack, Map.Entry<List<String>, Map.Entry<List<PotionEffect>, Map.Entry<Integer, Integer>>>>> getDrugs() { return drugs; }
+    public HashSet<Location> getDrugFarms() { return drugFarms; }
 }

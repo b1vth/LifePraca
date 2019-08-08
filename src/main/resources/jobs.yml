@@ -2,7 +2,7 @@ jobs:
   Gornik:
     name: 'gornik'
     levels:
-      - 1 0.40
+      - 1 0.40 diamond 0 40
       - 2 0.65
       - 3 0.90
       - 4 1.15
