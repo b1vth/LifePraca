@@ -41,7 +41,7 @@ public class MedykInventoryClickListener implements Listener{
             }
 
             if(e.getCurrentItem().getType().equals(Material.BOOK)){
-                IDUtil.shopJob((Player) e.getWhoClicked(), ju2);
+                IDUtil.showJob((Player) e.getWhoClicked(), ju2);
             }
 
             if(e.getCurrentItem().getType().equals(Material.CHEST)){

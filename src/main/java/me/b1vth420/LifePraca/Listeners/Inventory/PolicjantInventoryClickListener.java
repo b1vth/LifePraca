@@ -121,7 +121,7 @@ public class PolicjantInventoryClickListener implements Listener{
             }
 
             if(e.getCurrentItem().getType().equals(Material.BOOK)){
-                IDUtil.shopJob(p, ju2);
+                IDUtil.showJob(p, ju2);
             }
 
             if(e.getCurrentItem().getType().equals(Material.CHEST)){

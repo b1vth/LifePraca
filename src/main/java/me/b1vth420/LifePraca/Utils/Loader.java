@@ -23,6 +23,13 @@ public class Loader {
         loadScheamatics();
         loadJobs();
         loadDrugs();
+        loadItems();
+    }
+
+    private static void loadItems(){
+        Main.getInst().getSavedItems().putIfAbsent("Policja", ItemUtil.BuildItem(Material.STICK, ChatUtil.chat("&4Palka policyjna")));
+        Main.getInst().getSavedItems().putIfAbsent("Zlodziej", ItemUtil.BuildItem(Material.BLAZE_ROD, ChatUtil.chat("&cOkradnij")));
+        Main.getInst().getSavedItems().putIfAbsent("Medyk", ItemUtil.BuildItem(Material.CAKE, ChatUtil.chat("&2Apteczka")));
     }
 
     private static void loadDrugs(){

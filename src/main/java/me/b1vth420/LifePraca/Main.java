@@ -46,6 +46,7 @@ public final class Main extends JavaPlugin {
     private SQLManager sql;
     private HashMap<Material, Map.Entry<ItemStack, Map.Entry<List<String>, Map.Entry<List<PotionEffect>, Map.Entry<Integer, Integer>>>>> drugs;
     private HashSet<Location> drugFarms;
+    private HashMap<String, ItemStack> savedItems;
 
     public Main() {
         inst = this;
@@ -150,4 +151,5 @@ public final class Main extends JavaPlugin {
 
     public HashMap<Material, Map.Entry<ItemStack, Map.Entry<List<String>, Map.Entry<List<PotionEffect>, Map.Entry<Integer, Integer>>>>> getDrugs() { return drugs; }
     public HashSet<Location> getDrugFarms() { return drugFarms; }
+    public HashMap<String, ItemStack> getSavedItems() { return savedItems; }
 }

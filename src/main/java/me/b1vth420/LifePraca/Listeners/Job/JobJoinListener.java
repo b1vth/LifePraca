@@ -37,33 +37,16 @@ public class JobJoinListener implements Listener{
         im.setLore(lore);
         is.setItemMeta(im);
 
-
-        ItemStack palka = new ItemStack(Material.STICK);
-        ItemMeta imx = palka.getItemMeta();
-        imx.setDisplayName(ChatUtil.chat("&4Palka policyjna"));
-        palka.setItemMeta(imx);
-
-        ItemStack apteczka = new ItemStack(Material.CAKE);
-        ItemMeta Apteczka = apteczka.getItemMeta();
-        Apteczka.setDisplayName(ChatUtil.chat("&2Apteczka"));
-        apteczka.setItemMeta(Apteczka);
-
-        ItemStack Steal = new ItemStack(Material.BLAZE_ROD);
-        ItemMeta steal = Steal.getItemMeta();
-        steal.setDisplayName("&cOkradnij");
-        Steal.setItemMeta(steal);
-
-
         if(ju.getJob().getJobType().equals(jobType.PREMIUM) && ju.getJob().getName().equalsIgnoreCase("medyk")){
-            e.getPlayer().getInventory().addItem(apteczka);
+            e.getPlayer().getInventory().addItem(Main.getInst().getSavedItems().get("Medyk"));
         }
 
         if(ju.getJob().getJobType().equals(jobType.ILLEGAL) && ju.getJob().getName().equalsIgnoreCase("zlodziej") || ju.getJob().getName().equalsIgnoreCase("zlodzieii")){
-            e.getPlayer().getInventory().addItem(Steal);
+            e.getPlayer().getInventory().addItem(Main.getInst().getSavedItems().get("Zlodziej"));
         }
 
         if(ju.getJob().getJobType().equals(jobType.PREMIUM) && ju.getJob().getName().equalsIgnoreCase("policjant")){
-            e.getPlayer().getInventory().addItem(palka);
+            e.getPlayer().getInventory().addItem(Main.getInst().getSavedItems().get("Policja"));
             e.getPlayer().getInventory().addItem(is);
         }
     }

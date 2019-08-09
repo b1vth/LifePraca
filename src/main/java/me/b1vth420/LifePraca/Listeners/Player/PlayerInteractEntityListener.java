@@ -12,14 +12,11 @@ import me.b1vth420.LifePraca.Utils.ChatUtil;
 import me.b1vth420.LifePraca.Utils.DeathUtil;
 import me.b1vth420.LifePraca.Utils.RandomUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.AbstractMap;
 
@@ -42,35 +39,20 @@ public class PlayerInteractEntityListener implements Listener{
 
             if (!ju.hasJob()) return;
 
-            ItemStack palka = new ItemStack(Material.STICK);
-            ItemMeta im = palka.getItemMeta();
-            im.setDisplayName(ChatUtil.chat("&4Palka policyjna"));
-            palka.setItemMeta(im);
-
-            ItemStack Steal = new ItemStack(Material.BLAZE_ROD);
-            ItemMeta steal = Steal.getItemMeta();
-            steal.setDisplayName("&cOkradnij");
-            Steal.setItemMeta(steal);
-
-            ItemStack apteczka = new ItemStack(Material.CAKE);
-            ItemMeta Apteczka = apteczka.getItemMeta();
-            Apteczka.setDisplayName(ChatUtil.chat("&2Apteczka"));
-            apteczka.setItemMeta(Apteczka);
-
             ju.setCheeked((Player) e.getRightClicked());
 
             if (DeathUtil.isSleeping((Player) e.getRightClicked()))
                 p.openInventory(((Player) e.getRightClicked()).getInventory());
 
-            if (ju.getJob().getJobType().equals(jobType.PREMIUM) && ju.getJob().getName().equalsIgnoreCase("medyk") && p.getItemInHand().equals(Apteczka))
+            if (ju.getJob().getJobType().equals(jobType.PREMIUM) && ju.getJob().getName().equalsIgnoreCase("medyk") && p.getItemInHand().equals(Main.getInst().getSavedItems().get("Medyk")))
                 MedykGui.medykGui(p);
 
-            if (ju.getJob().getJobType().equals(jobType.PREMIUM) && ju.getJob().getName().equalsIgnoreCase("policjant") && p.getItemInHand().equals(palka))
+            if (ju.getJob().getJobType().equals(jobType.PREMIUM) && ju.getJob().getName().equalsIgnoreCase("policjant") && p.getItemInHand().equals(Main.getInst().getSavedItems().get("Policja")))
                 PolicjantGui.policjantGui(p);
 
             JobUser ju2 = JobUser.get(ju.getCheeked());
 
-            if(p.getItemInHand().equals(Steal) && ju.getJob().getName().equalsIgnoreCase("zlodziej") || ju.getJob().getName().equalsIgnoreCase("zlodzieii"))
+            if(p.getItemInHand().equals(Main.getInst().getSavedItems().get("Zlodziej")) && ju.getJob().getName().equalsIgnoreCase("zlodziej") || ju.getJob().getName().equalsIgnoreCase("zlodzieii"))
                 steal(ju2, ju);
 
             if (ju.getLevels().get(j).getValue() >= level * level * 100) {
