@@ -3,6 +3,7 @@ package me.b1vth420.LifePraca.Listeners.Entity;
 import me.b1vth420.LifePraca.Data.Lang;
 import me.b1vth420.LifePraca.Objects.JobUser;
 import me.b1vth420.LifePraca.Utils.ChatUtil;
+import me.b1vth420.LifePraca.Utils.DeathUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,6 +24,9 @@ public class EntityDamageListener implements Listener{
                 PotionEffect pe = new PotionEffect(PotionEffectType.SLOW, 9999999, 1);
                 p.addPotionEffect(pe);
             }
+        }
+        if(DeathUtil.isDead(p)){
+            e.setCancelled(true);
         }
     }
 

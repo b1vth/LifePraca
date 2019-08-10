@@ -289,14 +289,14 @@ public class SQLManager {
             conn = pool.getConnection();
             for(JobUser ju : JobUserManager.getJobUsers().values()){
                 String s = "";
+                for(Map.Entry<Job, Map.Entry<Integer, Integer>> entry : ju.getLevels().entrySet()){
+                    s+=entry.getKey().getName() +  " " + entry.getValue().getKey() + " " + entry.getValue().getValue() +";";
+                }
                 ps = conn.prepareStatement("INSERT INTO lifeJobUser(uuid, name, job, money, level) VALUES (?,?,?,?,?) ON DUPLICATE KEY UPDATE name=?, job=?, money=?, level=?");
                 ps.setString(1, ju.getUuid().toString());
                 ps.setString(2, ju.getName());
                 ps.setString(3, ju.getJob().getName());
                 ps.setString(4, ChatUtil.formatDouble(ju.getMoney()).replace(",", "."));
-                for(Map.Entry<Job, Map.Entry<Integer, Integer>> entry : ju.getLevels().entrySet()){
-                    s+=entry.getKey().getName()+ " " + entry.getValue().getKey() + " " + entry.getValue().getValue() +";";
-                }
                 ps.setString(5, s);
                 ps.setString(6, ju.getName());
                 ps.setString(7, ju.getJob().getName());

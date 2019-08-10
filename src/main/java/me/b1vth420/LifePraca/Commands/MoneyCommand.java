@@ -13,6 +13,6 @@ public class MoneyCommand extends Command{
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        sender.sendMessage(Lang.getInst().accountBalanceMessage.replace("{MONEY}", ChatUtil.formatDouble(JobUser.get((Player) sender).getMoney())));
+        sender.sendMessage(ChatUtil.chat(Lang.getInst().accountBalanceMessage.replace("{MONEY}", ChatUtil.formatDouble(JobUser.get((Player) sender).getMoney()))));
     }
 }

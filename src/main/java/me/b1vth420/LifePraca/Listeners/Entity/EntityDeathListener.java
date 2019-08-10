@@ -25,18 +25,20 @@ public class EntityDeathListener implements Listener {
             Player p = (Player) e.getEntity();
             p.setHealth(1);
 
-            DeathUtil.playSleepAnimation(p);
+            DeathUtil.addDeath(p);
 
             BarAPI.setMessage(p, ChatUtil.chat(Lang.getInst().bossBarOnDeath), Config.getInst().deathTime*60);
             Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInst(), new Runnable() {
                 public void run() {
-                    if (DeathUtil.isSleeping(p)) {
-                        DeathUtil.stopSleepAnimation(p);
+                    if (DeathUtil.isDead(p)) {
+                        DeathUtil.removeDeath(p);
                         p.teleport(p.getWorld().getSpawnLocation());
                         BarAPI.removeBar(p);
+                        p.setHealth(20);
+                        p.sendMessage(ChatUtil.chat("&cWykrwawiles sie!"));
                     }
                 }
-            }, Config.getInst().deathTime*60*1000);
+            }, Config.getInst().deathTime*60*20);
         }
 
         if (e.getEntity().getKiller() != null) {

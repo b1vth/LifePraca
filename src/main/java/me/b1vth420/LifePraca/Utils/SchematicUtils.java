@@ -13,6 +13,7 @@ import org.jnbt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.AbstractMap;
 import java.util.HashSet;
 import java.util.Map;
 
@@ -82,6 +83,7 @@ public class SchematicUtils {
 
             p.sendTitle(ChatUtil.chat("&2Prace"), ChatUtil.chat(Lang.getInst().buildingSuccessfulBuildMessage), 20, 60, 20);
             ju.setMoney(ju.getMoney() + money);
+            ju.getLevels().replace(ju.getJob(), new AbstractMap.SimpleEntry<>(ju.getLevels().get(ju.getJob()).getKey(), ju.getLevels().get(ju.getJob()).getValue() + pa.getSchema().getLevel()*20));
             ChatUtil.sendActionBar(p, ChatUtil.chat(Lang.getInst().buildingSuccessfulMoneyMessage.replace("{MONEY}", String.valueOf(money))));
 
             prepare(p, ba, pa, ju);

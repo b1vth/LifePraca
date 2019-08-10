@@ -21,11 +21,11 @@ public class SchematicManager {
         schematics.remove(s);
     }
 
-    public static Schematic getRandom() {
+    public static Schematic getRandom(int level) {
         int i = 0;
         int random = new Random().nextInt(schematics.size());
         for (Schematic s : SchematicManager.getSchematics()) {
-            if (i == random)
+            if (i == random && s.getLevel() == level)
                 return s;
             i++;
         }

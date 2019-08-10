@@ -6,7 +6,6 @@ import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
 import com.sk89q.worldedit.bukkit.selections.Selection;
 import com.sk89q.worldedit.regions.Region;
 import me.b1vth420.LifePraca.Managers.PatternArenaManager;
-import me.b1vth420.LifePraca.Managers.SchematicManager;
 import me.b1vth420.LifePraca.Utils.SchematicUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -48,12 +47,11 @@ public class PatternArena {
         this.upperLoc = up.toLocation(center.getWorld());
     }
 
-    public void fill(){
+    public void fill(Schematic sx){
         clear();
         Location l = new Location(center.getWorld(), center.getBlockX()-this.size+1, center.getBlockY(), center.getBlockZ()-this.size+1);
-        Schematic s = SchematicManager.getRandom();
-        SchematicUtils.pasteSchematic(l.getWorld(), l, s, this.blocks);
-        this.schema = s;
+        SchematicUtils.pasteSchematic(l.getWorld(), l, sx, this.blocks);
+        this.schema = sx;
     }
 
     public void clear(){

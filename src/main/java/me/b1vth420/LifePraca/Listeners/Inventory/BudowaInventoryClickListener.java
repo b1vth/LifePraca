@@ -3,9 +3,11 @@ package me.b1vth420.LifePraca.Listeners.Inventory;
 import me.b1vth420.LifePraca.Data.Lang;
 import me.b1vth420.LifePraca.Main;
 import me.b1vth420.LifePraca.Managers.BuildingArenaManager;
+import me.b1vth420.LifePraca.Managers.SchematicManager;
 import me.b1vth420.LifePraca.Objects.BuildingArea;
 import me.b1vth420.LifePraca.Objects.JobUser;
 import me.b1vth420.LifePraca.Objects.PatternArena;
+import me.b1vth420.LifePraca.Objects.Schematic;
 import me.b1vth420.LifePraca.Utils.ChatUtil;
 import me.b1vth420.LifePraca.Utils.InventoryUtil;
 import org.bukkit.Bukkit;
@@ -27,6 +29,7 @@ public class BudowaInventoryClickListener implements Listener{
             JobUser ju = JobUser.get(p);
             int level = ju.getLevels().get(ju.getJob()).getKey();
 
+            p.sendMessage(e.getSlot() + "");
             if(level >= e.getSlot()+1)
                 teleportToWork(p, ju, e.getSlot() + 1);
             else p.sendMessage(ChatUtil.chat("&4Blad!&c Nie masz odpowiedniego poziomu budowania!"));
@@ -35,7 +38,7 @@ public class BudowaInventoryClickListener implements Listener{
 
     private void teleportToWork(Player p, JobUser ju, int level){
         p.closeInventory();
-        BuildingArea ba = BuildingArenaManager.getEmpty(level);
+        BuildingArea ba = BuildingArenaManager.getEmpty();
         if(ba == null){
             p.sendMessage(ChatUtil.chat("&4Blad! &cW tej chwili nie ma miejsca na budowie!"));
             return;
@@ -45,7 +48,8 @@ public class BudowaInventoryClickListener implements Listener{
         p.teleport(pa.getCenter());
         p.sendTitle(ChatUtil.chat("&2Praca"), ChatUtil.chat(Lang.getInst().buildingTeleportMessage), 20, 60, 20);
         ba.setEmpty(false);
-        pa.fill();
+        Schematic s = SchematicManager.getRandom(level);
+        pa.fill(s);
         InventoryUtil.storeAndClearInventory(p);
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInst(), new Runnable() {

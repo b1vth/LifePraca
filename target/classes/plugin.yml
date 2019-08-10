@@ -1,0 +1,5 @@
+name: LifePraca
+version: 1.0-SNAPSHOT
+main: me.b1vth420.LifePraca.Main
+softdepend: [LifeDrop]
+authors: [b1vth420]

@@ -17,7 +17,10 @@ public class PlayerDropListener implements Listener {
     public void onDrop(PlayerDropEvent e) {
         JobUser ju = JobUser.get(e.getPlayer());
         if(!ju.hasJob()) return;
-        if (!ju.getJob().getMoneyGivingDrops().containsKey(e.getDrop().getItem().getType())) return;
+        if (!ju.getJob().getMoneyGivingDrops().containsKey(e.getDrop().getItem().getType())) {
+            e.getPlayer().getWorld().dropItemNaturally(e.getBlock().getLocation(), e.getDrop().getItem());
+            return;
+        }
 
         Job j = Job.get(ju.getJob());
         ju.setMoney(ju.getMoney() + j.getLevels().get(ju.getLevels().get(j).getKey()));

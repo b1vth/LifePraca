@@ -1,0 +1,39 @@
+MySQL:
+  ip: remotemysql.com
+  port: 3306
+  database: Xr4jG9xBB7
+  username: Xr4jG9xBB7
+  password: fQKKM0WZKB
+  safeSave: true
+
+unemployed:
+  benefit: 50
+  time: 3600
+
+badge:
+  lore:
+    - "Imie: {NAME}"
+    - "ID: {ID}"
+    - "Sluzy od: {TIME}"
+  levelsName:
+    - 1 Kadet
+    - 2 Oficer
+
+drugs:
+  likaon:
+    level: 1
+    pkt: 10
+    item:
+      type: carrot_item
+      toBreak: carrot
+      name: '&cLikaon'
+      lore:
+        - "Likaon 1"
+    commands:
+      - say likaon
+    effects:
+      - speed 20 1
+
+time:
+  death: 10
+  steal: 10

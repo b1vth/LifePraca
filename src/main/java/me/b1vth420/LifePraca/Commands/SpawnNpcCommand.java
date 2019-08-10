@@ -24,6 +24,5 @@ public class SpawnNpcCommand extends Command{
         v.setAge(40);
 
         p.sendMessage(ChatUtil.chat("&aStworzyles villagera"));
-        p.teleport(p.getWorld().getSpawnLocation());
     }
 }

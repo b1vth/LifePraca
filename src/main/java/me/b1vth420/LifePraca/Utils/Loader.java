@@ -57,7 +57,7 @@ public class Loader {
                     effects.add(effect);
                 }
 
-            ItemStack is = ItemUtil.BuildItem(m, name, lore);
+            ItemStack is = ItemUtil.BuildItem(m, ChatUtil.chat(name), lore);
 
             Main.getInst().getDrugs().put(toBreak, new AbstractMap.SimpleEntry<>(is, new AbstractMap.SimpleEntry<>(commands, new AbstractMap.SimpleEntry<>(effects, new AbstractMap.SimpleEntry<>(level, pkt)))));
         }

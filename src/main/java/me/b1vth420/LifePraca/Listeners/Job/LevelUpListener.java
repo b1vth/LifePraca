@@ -13,12 +13,13 @@ import java.util.AbstractMap;
 public class LevelUpListener implements Listener {
 
     @EventHandler
-    public void LevelUp(LevelUpEvent e){
+    public void LevelUp(LevelUpEvent e) {
         JobUser ju = JobUser.get(e.getPlayer());
-        e.getPlayer().sendMessage(ChatUtil.chat(Lang.getInst().jobLevelUpMessage.replace("{LEVEL}", String.valueOf(e.getLevel()+1))));
-        ju.getLevels().put(ju.getJob(), new AbstractMap.SimpleEntry<>(ju.getLevels().get(ju.getJob()).getKey() +1, ju.getLevels().get(ju.getJob()).getValue()));
-        for(ItemStack is : ju.getJob().getPrizes().get(0)){
-            e.getPlayer().getInventory().addItem(is);
+        e.getPlayer().sendMessage(ChatUtil.chat(Lang.getInst().jobLevelUpMessage.replace("{LEVEL}", String.valueOf(e.getLevel() + 1))));
+        ju.getLevels().put(ju.getJob(), new AbstractMap.SimpleEntry<>(ju.getLevels().get(ju.getJob()).getKey() + 1, ju.getLevels().get(ju.getJob()).getValue()));
+        for (ItemStack is : ju.getJob().getPrizes().get(ju.getLevels().get(ju.getJob()).getKey()-1)) {
+            if(is != null)
+                e.getPlayer().getInventory().addItem(is);
         }
     }
 }

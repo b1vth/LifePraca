@@ -33,6 +33,9 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Rejestracja" level="project" />
+    <orderEntry type="library" name="EssentialsX-2.17.1.0" level="project" />
+    <orderEntry type="library" name="BarAPI" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.destroystokyo.paper:paper-api:1.12.2-R0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.mojang:authlib:1.5.25" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: commons-codec:commons-codec:1.10" level="project" />
@@ -70,8 +73,5 @@
     <orderEntry type="library" name="Maven: cglib:cglib-nodep:3.2.5" level="project" />
     <orderEntry type="library" name="Maven: com.comphenix.executors:BukkitExecutors:1.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: com.zaxxer:HikariCP:3.3.1" level="project" />
-    <orderEntry type="library" name="Rejestracja" level="project" />
-    <orderEntry type="library" name="EssentialsX-2.17.1.0" level="project" />
-    <orderEntry type="library" name="BarAPI" level="project" />
   </component>
 </module>

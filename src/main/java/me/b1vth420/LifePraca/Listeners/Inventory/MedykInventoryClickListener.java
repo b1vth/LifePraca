@@ -29,9 +29,9 @@ public class MedykInventoryClickListener implements Listener{
                 ju2.getPlayer().setHealth(20);
                 ju2.getPlayer().removePotionEffect(PotionEffectType.SLOW);
                 ju2.sendMessage(Lang.getInst().playerHelpedMessage.replace("{PLAYER}", ju.getName()));
-                if(DeathUtil.isSleeping(ju2.getPlayer())) {
+                if(DeathUtil.isDead(ju2.getPlayer())) {
                     if(BarAPI.hasBar(ju2.getPlayer())) BarAPI.removeBar(ju2.getPlayer());
-                    DeathUtil.stopSleepAnimation(ju2.getPlayer());
+                    DeathUtil.removeDeath(ju2.getPlayer());
                 }
             }
 

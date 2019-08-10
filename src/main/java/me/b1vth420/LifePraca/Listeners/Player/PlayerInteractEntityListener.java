@@ -41,7 +41,7 @@ public class PlayerInteractEntityListener implements Listener{
 
             ju.setCheeked((Player) e.getRightClicked());
 
-            if (DeathUtil.isSleeping((Player) e.getRightClicked()))
+            if (DeathUtil.isDead((Player) e.getRightClicked()))
                 p.openInventory(((Player) e.getRightClicked()).getInventory());
 
             if (ju.getJob().getJobType().equals(jobType.PREMIUM) && ju.getJob().getName().equalsIgnoreCase("medyk") && p.getItemInHand().equals(Main.getInst().getSavedItems().get("Medyk")))

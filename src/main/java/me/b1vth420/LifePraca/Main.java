@@ -20,8 +20,8 @@ import me.b1vth420.LifePraca.Listeners.Job.JobJoinListener;
 import me.b1vth420.LifePraca.Listeners.Job.LevelUpListener;
 import me.b1vth420.LifePraca.Listeners.Player.*;
 import me.b1vth420.LifePraca.Tasks.BuildingTimeTask;
+import me.b1vth420.LifePraca.Tasks.DeathPlayerTask;
 import me.b1vth420.LifePraca.Tasks.PremiumJobTask;
-import me.b1vth420.LifePraca.Tasks.SleepTask;
 import me.b1vth420.LifePraca.Tasks.UnemployedBenefitTask;
 import me.b1vth420.LifePraca.Utils.Loader;
 import me.b1vth420.LifePraca.Utils.RegisterUtil;
@@ -29,6 +29,7 @@ import me.b1vth420.LifePraca.Utils.SignMenuFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
@@ -47,6 +48,7 @@ public final class Main extends JavaPlugin {
     private HashMap<Material, Map.Entry<ItemStack, Map.Entry<List<String>, Map.Entry<List<PotionEffect>, Map.Entry<Integer, Integer>>>>> drugs;
     private HashSet<Location> drugFarms;
     private HashMap<String, ItemStack> savedItems;
+    private HashMap<String, Player> dead = new HashMap<>();
 
     public Main() {
         inst = this;
@@ -115,7 +117,8 @@ public final class Main extends JavaPlugin {
         new BuildingTimeTask().runTaskTimer(this, 20L, 20L);
         new PremiumJobTask().runTaskTimer(this, 20*60L, 20*60L);
         new UnemployedBenefitTask().runTaskTimer(this, 20*Config.getInst().benefitTime, 20*Config.getInst().benefitTime);
-        new SleepTask().runTaskTimer(this, 20*10, 20*10);
+        new DeathPlayerTask().runTaskTimer(this, 20*2, 20*2);
+
     }
 
     private void registerDatabase(){
@@ -127,6 +130,7 @@ public final class Main extends JavaPlugin {
         this.signMenuFactory = new SignMenuFactory(this);
         this.drugs = new HashMap<>();
         this.drugFarms = new HashSet<>();
+        this.savedItems = new HashMap<>();
         FileManager.check();
         Loader.load();
         Config.getInst().load();
@@ -152,4 +156,5 @@ public final class Main extends JavaPlugin {
     public HashMap<Material, Map.Entry<ItemStack, Map.Entry<List<String>, Map.Entry<List<PotionEffect>, Map.Entry<Integer, Integer>>>>> getDrugs() { return drugs; }
     public HashSet<Location> getDrugFarms() { return drugFarms; }
     public HashMap<String, ItemStack> getSavedItems() { return savedItems; }
+    public HashMap<String, Player> getDead() { return dead; }
 }
